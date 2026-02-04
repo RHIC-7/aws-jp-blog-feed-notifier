@@ -1,0 +1,1 @@
+# aws-jp-blog-feed-notifier
