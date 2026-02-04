@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Japan Blog Feed Notifier Lambda Function
+
+Parameters:
+  FeedUrl:
+    Type: String
+    Default: https://aws.amazon.com/jp/blogs/news/feed/
+    Description: RSS feed URL to monitor
+
+Resources:
+  BlogFeedNotifierFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: aws-jp-blog-feed-notifier
+      Description: Monitors AWS Japan blog RSS feed and sends notifications
+      Runtime: python3.12
+      Handler: lambda_handler.lambda_handler
+      CodeUri: ./lambda_package
+      MemorySize: 256
+      Timeout: 30
+      Environment:
+        Variables:
+          FEED_URL: !Ref FeedUrl
+      Policies:
+        - CloudWatchLogsFullAccess
+      Events:
+        ScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 hour)
+            Description: Check for new blog posts every hour
+            Enabled: true
+
+  BlogNotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: aws-jp-blog-notifications
+      DisplayName: AWS Japan Blog Notifications
+
+Outputs:
+  FunctionArn:
+    Description: Lambda Function ARN
+    Value: !GetAtt BlogFeedNotifierFunction.Arn
+  
+  SNSTopicArn:
+    Description: SNS Topic ARN for notifications
+    Value: !Ref BlogNotificationTopic
