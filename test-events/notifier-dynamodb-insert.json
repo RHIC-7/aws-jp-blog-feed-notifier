@@ -1,0 +1,28 @@
+{
+  "Records": [
+    {
+      "eventID": "00000000000000000000000000000000",
+      "eventName": "INSERT",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "ap-northeast-1",
+      "eventSourceARN": "arn:aws:dynamodb:ap-northeast-1:123456789012:table/aws-jp-blog-feed-notifier/stream/2026-02-05T00:00:00.000",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1760000000,
+        "Keys": {
+          "id": { "N": "1" }
+        },
+        "NewImage": {
+          "id": { "N": "1" },
+          "date": { "S": "2026-02-04" },
+          "title": { "S": "テスト通知: DynamoDB Streams → Webhook" },
+          "url": { "S": "https://aws.amazon.com/jp/blogs/news/cloudwatch-get-telemetry-data-logs/" },
+          "excerpt": { "S": "これはWebhook送信のテストイベントです。" }
+        },
+        "SequenceNumber": "1",
+        "SizeBytes": 123,
+        "StreamViewType": "NEW_IMAGE"
+      }
+    }
+  ]
+}
