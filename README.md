@@ -11,6 +11,7 @@ AWS公式ブログ（日本 / News）のRSSフィードから「前日に公開�
 
 ## 構成
 
+- Teams: Microsoft TeamsのチャネルでWebhook URLを発行
 - crawler Lambda: [src/lambda/crawl_rss_feed.py](src/lambda/crawl_rss_feed.py)
 	- `BLOG_POSTS_TABLE`（DynamoDB）へ書き込み
 - notifier Lambda: [src/lambda/notifier.py](src/lambda/notifier.py)
